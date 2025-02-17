@@ -1,1 +1,1 @@
-# proj_arq_MIPS
+# Projeto de Arquitetura, Implementação de MIPS em Verilog
