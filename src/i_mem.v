@@ -4,7 +4,7 @@ module i_mem (
 );
   parameter MEM_SIZE = 1024;   // numero de linhas lidas
   
-  reg [31:0] memory [0: MEM_SIZE];	//array contendo o as instruções
+  reg [31:0] memory [0: MEM_SIZE];	//array contendo o as instruções, 1024 linhas
   
   // Passar no maximo 1024 linhas do arquivo instruction.list para a memoria
   initial begin
