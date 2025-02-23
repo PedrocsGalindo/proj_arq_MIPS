@@ -16,3 +16,6 @@ module i_mem (
   always @(address) begin
     i_out = memory[address >> 2]; // alinhamento com 32 bits
   end
+
+
+endmodule
