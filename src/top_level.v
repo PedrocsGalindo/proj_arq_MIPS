@@ -7,3 +7,5 @@ module top_level (
     output wire [31:0] ULA_out,     // Saída da ULA
     output wire [31:0] MemData_out  // Saída da Memória de Dados
 );
+
+endmodule
