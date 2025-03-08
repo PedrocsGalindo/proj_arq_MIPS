@@ -1,41 +1,34 @@
-module regfile(
-
-    input wire [4:0] ReadAddr1,
-    input wire [4:0] ReadAddr2, 
-    input wire clock,
-    input wire [4:0] WriteAddr,         //endereço do registrador a ser escrito
-    input wire [31:0] WriteData,
-    input wire RegWrite, 
-    input wire Reset
+module regfile (
+    input wire [4:0] ReadAddr1,  
+    input wire [4:0] ReadAddr2,  
+    input wire clock,            
+    input wire [4:0] WriteAddr,  // Endereço do registrador a ser escrito
+    input wire [31:0] WriteData, 
+    input wire RegWrite,         
+    input wire Reset,            
     output wire [31:0] ReadData1,
-    output wire [31:0] ReadData2
+    output wire [31:0] ReadData2 
 );
-    
-    reg [31:0] registradores[31:0]; // vetor de 32 registradores de 32 bits 
-    interger i; // ponteiro para os registradores
 
-    //dados lidos
-    assign ReadData1 = regs[ReadAddr1];
-    assign ReadData2 = regs[ReadAddr2];
+    reg [31:0] registradores [31:0]; // 32 registradores de 32 bits cada
+    integer i;
 
-    // subida do clock ou reset = 1
-    always @(posedge Clock or posedge Reset) begin
+    // Leituras assíncronas (sem clock)
+    assign ReadData1 = registradores[ReadAddr1];
+    assign ReadData2 = registradores[ReadAddr2];
 
-        // verifica se foi o reset
-        if(Reset) begin
-
-            //Reseta todos os registradores
-            for (i = 0; i < 32; i = i + 1)
-                regs[i] <= 32'b0;
-        
-        // Caso tenha sido na subida do clock
-        end else begin
-
-        // verifica se RegWrite = 1, e se não é o $0
-        if (RegWrite && (WriteAddr != 5'd0))
-        
-            regs[WriteAddr] <= WriteData;       //escrita no registrador desejado
+    // Escrita síncrona (com clock) + Reset
+    always @(posedge clock or posedge Reset) begin
+        if (Reset) begin
+            // Se Reset estiver ativo, zera todos os registradores
+            for (i = 0; i < 32; i = i + 1) begin
+                registradores[i] <= 32'b0;
+            end
+        end else if (RegWrite && (WriteAddr != 5'd0)) begin
+            // Se RegWrite estiver ativo e WriteAddr não for $0, escreve no registrador
+            registradores[WriteAddr] <= WriteData;
         end
     end
+
 endmodule
 
