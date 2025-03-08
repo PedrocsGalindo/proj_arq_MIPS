@@ -12,7 +12,7 @@ module d_mem #(
         if (MemRead) begin
             ReadData = memory[Address >> 2]; 
         end else begin
-            ReadData = 32'bz; // Alta impedância quando não estiver lendo
+            ReadData = 32'bz;               // valor padrao (Z) quando não estiver lendo
         end
     end
 
