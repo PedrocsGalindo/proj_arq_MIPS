@@ -8,11 +8,18 @@ module d_mem #(
     output reg [31:0] ReadData   
 );
 
-    reg [31:0] memory [0:SIZE-1]
-
-    always @(posedge MemWrite) begin
-
+    always @(*) begin
+        if (MemRead) begin
+            ReadData = memory[Address >> 2]; 
+        end else begin
+            ReadData = 32'bz; // Alta impedância quando não estiver lendo
+        end
     end
-    always @(posedge MemRead) begin
 
+    always @(*) begin
+        if (MemWrite) begin
+            memory[Address >> 2] = WriteData;
+        end
     end
+
+endmodule
