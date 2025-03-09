@@ -7,5 +7,12 @@ module top_level (
     output wire [31:0] ULA_out,     // Saída da ULA
     output wire [31:0] MemData_out  // Saída da Memória de Dados
 );
+    reg [31:0] PC;       // Registrador que guarda o valor atual do PC
+
+    pc pc_i (
+        .clock(clock),
+        .nextPC(),      //ainda n sei oque fazer com o nextPc
+        .PC(PC)
+    )
 
 endmodule
