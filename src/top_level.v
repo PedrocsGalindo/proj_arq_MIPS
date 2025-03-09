@@ -7,8 +7,8 @@ module top_level (
     output wire [31:0] ULA_out,     // Saída da ULA
     output wire [31:0] MemData_out  // Saída da Memória de Dados
 );
-    reg [31:0] PC;       // Registrador que guarda o valor atual do PC
-    wire [31:0] nextPC;
+    reg [31:0] PC;          // Registrador que guarda o valor atual do PC
+    wire [31:0] nextPC;     // mux -- pc
 
     mux_pcsrc mux_pcsrc_i (
         .PC4(), 
