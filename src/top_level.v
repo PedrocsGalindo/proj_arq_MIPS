@@ -8,11 +8,23 @@ module top_level (
     output wire [31:0] MemData_out  // Saída da Memória de Dados
 );
     reg [31:0] PC;       // Registrador que guarda o valor atual do PC
+    wire [31:0] nextPC;
 
+    mux_pcsrc mux_pcsrc_i (
+        .PC4(), 
+        .BranchAddr(),
+        .JumpAddr(),
+        .PCSrc(),
+        .NextPC(nextPC)
+    );
     pc pc_i (
         .clock(clock),
-        .nextPC(),      //ainda n sei oque fazer com o nextPc
+        .nextPC(nextPC),      
         .PC(PC)
-    )
+    );
+    i_mem i_mem_i (
+        .adress(PC)
+        .i_out()        //instrução
+    );
 
 endmodule
