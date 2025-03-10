@@ -1,0 +1,41 @@
+`timescale 1ns / 1ps
+
+module SignExtend_tb;
+
+    // Declaração de sinais para entrada e saída
+    reg [15:0] in;
+    wire [31:0] out;
+
+    // Instancia o módulo SignExtend
+    SignExtend uut (
+        .in(in),
+        .out(out)
+    );
+
+    // Procedimento de teste
+    initial begin
+        // Exibe cabeçalho
+        $display("Tempo | Entrada (16 bits) | Saída (32 bits)");
+        $monitor("%4t  | %b | %b", $time, in, out);
+        
+        // Caso 1: Número positivo (0x000A = 10)
+        in = 16'b0000_0000_0000_1010; #10;
+
+        // Caso 2: Número negativo (-6 = 0xFFFA em complemento de dois)
+        in = 16'b1111_1111_1111_1010; #10;
+
+        // Caso 3: Número positivo (127 = 0x007F)
+        in = 16'b0000_0000_0111_1111; #10;
+
+        // Caso 4: Número negativo (-128 = 0xFF80)
+        in = 16'b1111_1111_1000_0000; #10;
+
+        // Caso 5: Número zero
+        in = 16'b0000_0000_0000_0000; #10;
+
+        // Finaliza a simulação
+        $finish;
+    end
+
+endmodule
+
