@@ -8,11 +8,13 @@ module d_mem #(
     output reg [31:0] ReadData   
 );
 
+    reg [31:0] memory [0:SIZE-1]; // Declaração da memória
+
     always @(*) begin
         if (MemRead) begin
             ReadData = memory[Address >> 2]; 
         end else begin
-            ReadData = 32'bz;               // valor padrao (Z) quando não estiver lendo
+            ReadData = 32'bz;               // Valor padrão (Z) quando não estiver lendo
         end
     end
 
