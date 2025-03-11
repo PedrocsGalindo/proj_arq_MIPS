@@ -1,20 +1,14 @@
 module i_mem (
-  input wire [31:0] address,    // Endereço da linha, dentro do arquivo "instructions.list"
-  output reg [31:0] i_out       // Conteúdo lido
+    input wire [31:0] address,
+    output reg [31:0] i_out
 );
-  parameter MEM_SIZE = 64;    // Número de linhas lidas (ajustado para o número de instruções no arquivo)
-  
-  reg [31:0] memory [0:MEM_SIZE-1]; // Array contendo as instruções, 64 linhas
-  
-  // Passar no máximo 64 linhas do arquivo instructions.list para a memória
-  initial begin
-    $readmemb("instructions.list", memory); // Lê arquivo binário linha por linha
-  end
-  
-  // Leitura assíncrona da memória
-  // O address fornecido pelo PC é um endereço de byte
-  always @(address) begin
-    i_out = memory[address >> 2]; // Alinhamento com 32 bits
-  end
+    reg [31:0] memory [0:63]; // Memória de 64 palavras de 32 bits
 
+    initial begin
+        $readmemb("instructions.list", memory); // Lê o arquivo binário linha por linha
+    end
+
+    always @(address) begin
+        i_out = memory[address >> 2]; // Alinhamento com 32 bits
+    end
 endmodule

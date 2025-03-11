@@ -1,12 +1,8 @@
 module mux_regdst (
-    input wire [4:0] rt, rd,
+    input wire [4:0] rt,
+    input wire [4:0] rd,
     input wire RegDst,
-    output reg [4:0] RegDstOut
+    output wire [4:0] RegDstOut
 );
-    always @(*) begin
-        if (RegDst) 
-            RegDstOut = rd;
-        else 
-            RegDstOut = rt;
-    end
+    assign RegDstOut = RegDst ? rd : rt;
 endmodule

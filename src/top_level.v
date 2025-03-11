@@ -5,7 +5,8 @@ module top_level (
     input wire reset,
     output wire [31:0] PC_out,
     output wire [31:0] ULA_out,
-    output wire [31:0] MemData_out
+    output wire [31:0] MemData_out,
+    output wire [31:0] instruction_out // Adicione esta linha para exportar a instrução
 );
 
     // Sinais internos
@@ -19,6 +20,7 @@ module top_level (
     // Instância do PC
     pc pc_inst (
         .clock(clock),
+        .reset(reset),
         .nextPC(nextPC),
         .PC(PC)
     );
@@ -128,5 +130,6 @@ module top_level (
     assign PC_out = PC;
     assign ULA_out = ALUResult;
     assign MemData_out = MemData;
+    assign instruction_out = instruction; // Adicione esta linha para exportar a instrução
 
 endmodule
