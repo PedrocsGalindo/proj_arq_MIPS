@@ -1,0 +1,89 @@
+module test_ula_ctrl;
+
+    // Declaração dos sinais
+    reg [1:0] ALUOp;
+    reg [5:0] func;
+    wire [3:0] OP;
+
+    // Instanciação do módulo
+    ula_ctrl uut (
+        .ALUOp(ALUOp),
+        .func(func),
+        .OP(OP)
+    );
+
+    // Inicialização dos sinais e estímulos
+    initial begin
+        // Exemplo de testes de ALUOp com diferentes valores de func
+        $display("Testando ULA Control");
+        
+        // Teste 1: ALUOp = 00
+        ALUOp = 2'b00; func = 6'bxxxxxx;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 2: ALUOp = 01
+        ALUOp = 2'b01; func = 6'bxxxxxx;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 3: ALUOp = 10, func = 100000 (soma)
+        ALUOp = 2'b10; func = 6'b100000;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 4: ALUOp = 10, func = 100010 (subtração)
+        ALUOp = 2'b10; func = 6'b100010;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 5: ALUOp = 10, func = 100100 (AND)
+        ALUOp = 2'b10; func = 6'b100100;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 6: ALUOp = 10, func = 100101 (OR)
+        ALUOp = 2'b10; func = 6'b100101;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 7: ALUOp = 10, func = 000000 (shift left)
+        ALUOp = 2'b10; func = 6'b000000;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 8: ALUOp = 10, func = 000010 (shift right)
+        ALUOp = 2'b10; func = 6'b000010;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 9: ALUOp = 10, func = 101010 (set on less than)
+        ALUOp = 2'b10; func = 6'b101010;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 10: ALUOp = 10, func = 101011 (set on less than unsigned)
+        ALUOp = 2'b10; func = 6'b101011;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 11: ALUOp = 10, func = 100001 (increment)
+        ALUOp = 2'b10; func = 6'b100001;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 12: ALUOp = 10, func = 100011 (decrement)
+        ALUOp = 2'b10; func = 6'b100011;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Teste 13: ALUOp = 11 (default case)
+        ALUOp = 2'b11; func = 6'bxxxxxx;
+        #10;
+        $display("ALUOp = %b, func = %b, OP = %b", ALUOp, func, OP);
+        
+        // Finalizando o teste
+        $finish;
+    end
+
+endmodule
